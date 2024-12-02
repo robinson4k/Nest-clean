@@ -2,7 +2,6 @@ import { Module } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
-import { AuthenticateController } from "src/controllers/authenticate.controller";
 import { Env } from "src/env";
 import { JwtStrategy } from "./jwt.strategy";
 
@@ -11,6 +10,7 @@ import { JwtStrategy } from "./jwt.strategy";
     PassportModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
+      global: true,
       useFactory(config: ConfigService<Env, true>) {
         const privateKey = config.get('JWT_PRIVATE_KEY', {infer: true})
         const publicKey = config.get('JWT_PUBLIC_KEY', {infer: true})
@@ -25,7 +25,5 @@ import { JwtStrategy } from "./jwt.strategy";
     })
   ],
   providers: [JwtStrategy],
-  controllers: [AuthenticateController], // Registre o AuthenticateController aqui
-  exports: [JwtModule],
 })
 export class AuthModule {}
