@@ -10,7 +10,7 @@ describe('Create account (E2E)', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule]
+      imports: [AppModule],
     }).compile()
     app = moduleRef.createNestApplication()
     prisma = moduleRef.get(PrismaService)
@@ -21,14 +21,14 @@ describe('Create account (E2E)', () => {
     const response = await request(app.getHttpServer()).post('/accounts').send({
       name: 'Robinson Silva',
       email: 'robinson4k@gmail.com',
-      password: '123456'
+      password: '123456',
     })
     expect(response.statusCode).toBe(201)
 
     const userOnDatabase = await prisma.user.findUnique({
       where: {
-        email: 'robinson4k@gmail.com'
-      }
+        email: 'robinson4k@gmail.com',
+      },
     })
     expect(userOnDatabase).toBeTruthy()
   })

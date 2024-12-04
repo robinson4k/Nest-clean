@@ -12,7 +12,7 @@ describe('Create question (E2E)', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule]
+      imports: [AppModule],
     }).compile()
     app = moduleRef.createNestApplication()
     prisma = moduleRef.get(PrismaService)
@@ -25,25 +25,25 @@ describe('Create question (E2E)', () => {
       data: {
         name: 'Robinson Silva',
         email: 'robinson4k@gmail.com',
-        password: '123456'
-      }
+        password: '123456',
+      },
     })
 
     const accessToken = jwt.sign({ sub: user.id })
 
     const response = await request(app.getHttpServer())
-    .post('/questions')
-    .set('Authorization', `Bearer ${accessToken}`)
-    .send({
-      title: 'Titulo exemplo',
-      content: 'Conteudo exemplo',
-    })
+      .post('/questions')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        title: 'Titulo exemplo',
+        content: 'Conteudo exemplo',
+      })
     expect(response.statusCode).toBe(201)
 
     const questionOnDatabase = await prisma.question.findFirst({
       where: {
-        title: 'Titulo exemplo'
-      }
+        title: 'Titulo exemplo',
+      },
     })
     expect(questionOnDatabase).toBeTruthy()
   })

@@ -12,7 +12,7 @@ describe('Fetch recent questions (E2E)', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule]
+      imports: [AppModule],
     }).compile()
     app = moduleRef.createNestApplication()
     prisma = moduleRef.get(PrismaService)
@@ -25,8 +25,8 @@ describe('Fetch recent questions (E2E)', () => {
       data: {
         name: 'Robinson Silva',
         email: 'robinson4k@gmail.com',
-        password: '123456'
-      }
+        password: '123456',
+      },
     })
 
     const accessToken = jwt.sign({ sub: user.id })
@@ -37,27 +37,27 @@ describe('Fetch recent questions (E2E)', () => {
           title: 'Question 01',
           slug: 'question-01',
           content: 'Question content',
-          authorId: user.id
+          authorId: user.id,
         },
         {
           title: 'Question 02',
           slug: 'question-02',
           content: 'Question content',
-          authorId: user.id
-        }
-      ]
+          authorId: user.id,
+        },
+      ],
     })
 
     const response = await request(app.getHttpServer())
-    .get('/questions')
-    .set('Authorization', `Bearer ${accessToken}`)
-    .send()
+      .get('/questions')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send()
     expect(response.statusCode).toBe(200)
     expect(response.body).toEqual({
       questions: [
         expect.objectContaining({ title: 'Question 01' }),
-        expect.objectContaining({ title: 'Question 02' })
-      ]
+        expect.objectContaining({ title: 'Question 02' }),
+      ],
     })
   })
 })
