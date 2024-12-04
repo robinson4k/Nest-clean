@@ -1,6 +1,7 @@
 {
   "extends": "@rocketseat/eslint-config/node",
   "rules": {
+    "quotes": ["error", "single"], // Força o uso de aspas simples
     "no-useless-constructor": "off",
     "no-new": "off"
   }
