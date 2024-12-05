@@ -13,7 +13,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
     const question = await this.prisma.question.findUnique({
       where: {
         id,
-      }
+      },
     })
 
     if (!question) {

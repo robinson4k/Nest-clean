@@ -4,12 +4,17 @@ import { QuestionComment } from '@/domain/forum/enterprise/entities/question-com
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class PrismaQuestionCommentsRepository implements QuestionCommentsRepository {
+export class PrismaQuestionCommentsRepository
+  implements QuestionCommentsRepository
+{
   findById(id: string): Promise<QuestionComment | null> {
     throw new Error('Method not implemented.')
   }
 
-  findManyByQuestionId(questionId: string, params: PaginationParams): Promise<QuestionComment[]> {
+  findManyByQuestionId(
+    questionId: string,
+    params: PaginationParams,
+  ): Promise<QuestionComment[]> {
     throw new Error('Method not implemented.')
   }
 
